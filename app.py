@@ -260,7 +260,7 @@ Descripción del problema:
           </tr>
           <tr>
           <div>
-          <div>
+          <div><div><br><br><br><br>
             <td style="padding:24px 28px 8px;">
               <p style="margin:0 0 4px; font-family:'Courier New', monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#5C6773;">Mesa de ayuda &middot; TI</p>
               <h2 style="margin:0 0 20px; font-size:20px; color:#1C2733;">Nuevo reporte de soporte técnico</h2>
