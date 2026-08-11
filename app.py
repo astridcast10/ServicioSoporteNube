@@ -259,8 +259,6 @@ Descripción del problema:
             </td>
           </tr>
           <tr>
-          <div>
-          <div><div><br><br><br><br>
             <td style="padding:24px 28px 8px;">
               <p style="margin:0 0 4px; font-family:'Courier New', monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#5C6773;">Mesa de ayuda &middot; TI</p>
               <h2 style="margin:0 0 20px; font-size:20px; color:#1C2733;">Nuevo reporte de soporte técnico</h2>
@@ -319,34 +317,32 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.markdown('<div class="panel">', unsafe_allow_html=True)
-st.markdown(
-    f'<div class="ticket-header">'
-    f'<div class="ticket-numero">TICKET <strong>{st.session_state.ticket_id}</strong></div>'
-    f'<div class="ticket-estado">Sin enviar</div>'
-    f'</div>',
-    unsafe_allow_html=True
-)
+with st.container(border=True):
+    st.markdown(
+        f'<div class="ticket-header">'
+        f'<div class="ticket-numero">TICKET <strong>{st.session_state.ticket_id}</strong></div>'
+        f'<div class="ticket-estado">Sin enviar</div>'
+        f'</div>',
+        unsafe_allow_html=True
+    )
 
-with st.form("formulario_reporte"):
-    st.markdown('<div class="campo-label">Nombre del usuario</div>', unsafe_allow_html=True)
-    nombre = st.text_input("Nombre del usuario", label_visibility="collapsed")
+    with st.form("formulario_reporte"):
+        st.markdown('<div class="campo-label">Nombre del usuario</div>', unsafe_allow_html=True)
+        nombre = st.text_input("Nombre del usuario", label_visibility="collapsed")
 
-    st.markdown('<div class="campo-label">Correo electrónico</div>', unsafe_allow_html=True)
-    correo = st.text_input("Correo electrónico", label_visibility="collapsed")
+        st.markdown('<div class="campo-label">Correo electrónico</div>', unsafe_allow_html=True)
+        correo = st.text_input("Correo electrónico", label_visibility="collapsed")
 
-    st.markdown('<div class="campo-label">Tipo de problema</div>', unsafe_allow_html=True)
-    tipo_problema = st.selectbox("Tipo de problema", TIPOS_PROBLEMA, label_visibility="collapsed")
+        st.markdown('<div class="campo-label">Tipo de problema</div>', unsafe_allow_html=True)
+        tipo_problema = st.selectbox("Tipo de problema", TIPOS_PROBLEMA, label_visibility="collapsed")
 
-    st.markdown('<div class="campo-label">Nivel de prioridad</div>', unsafe_allow_html=True)
-    prioridad = st.radio("Nivel de prioridad", PRIORIDADES, horizontal=True, label_visibility="collapsed")
+        st.markdown('<div class="campo-label">Nivel de prioridad</div>', unsafe_allow_html=True)
+        prioridad = st.radio("Nivel de prioridad", PRIORIDADES, horizontal=True, label_visibility="collapsed")
 
-    st.markdown('<div class="campo-label">Descripción detallada del problema</div>', unsafe_allow_html=True)
-    descripcion = st.text_area("Descripción del problema", height=140, label_visibility="collapsed")
+        st.markdown('<div class="campo-label">Descripción detallada del problema</div>', unsafe_allow_html=True)
+        descripcion = st.text_area("Descripción del problema", height=140, label_visibility="collapsed")
 
-    enviado = st.form_submit_button("Enviar reporte")
-
-st.markdown('</div>', unsafe_allow_html=True)
+        enviado = st.form_submit_button("Enviar reporte")
 
 if enviado:
     errores = []
