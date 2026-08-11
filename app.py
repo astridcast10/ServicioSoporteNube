@@ -234,7 +234,7 @@ Prioridad: {prioridad}
 Descripción del problema:
 {descripcion}
 """
-
+ <p style="margin:0 0 4px; font-family:'Courier New', monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#5C6773;">Mesa de ayuda &middot; TI&middot; Astrid Castellanos</p>
     cuerpo_html = f"""\
 <html>
 <body style="margin:0; padding:0; background-color:#E7EBEF; font-family:Arial, Helvetica, sans-serif;">
@@ -316,8 +316,6 @@ st.markdown(
     'El equipo de soporte recibe el reporte de inmediato por correo.</div>',
     unsafe_allow_html=True
 )
-
-              <p style="margin:0 0 4px; font-family:'Courier New', monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#5C6773;">Mesa de ayuda &middot; TI&middot; Astrid Castellanos</p>
 
 with st.container(border=True):
     st.markdown(
