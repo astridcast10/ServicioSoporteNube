@@ -107,11 +107,11 @@ html, body, [class*="css"] {
     padding: 0.15rem 0.5rem;
 }
 
-.panel {
+.panel, div[data-testid="stVerticalBlockBorderWrapper"] {
     background: var(--panel);
     border: 1px solid var(--line);
     border-radius: 6px;
-    padding: 1.8rem 1.9rem 1.5rem;
+    padding: 0.4rem 1.9rem 1.5rem;
     box-shadow: 0 1px 2px rgba(28,39,51,0.04), 0 10px 24px -18px rgba(28,39,51,0.5);
 }
 
