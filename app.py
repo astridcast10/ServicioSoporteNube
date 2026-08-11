@@ -210,12 +210,20 @@ def enviar_correo(nombre, correo, tipo_problema, prioridad, descripcion, ticket_
     clave = st.secrets["SMTP_PASSWORD"]
     correo_admin = st.secrets["ADMIN_EMAIL"]
 
-    mensaje = MIMEMultipart()
+    colores_prioridad = {
+        "Baja": "#4C8C6B",
+        "Media": "#B8901F",
+        "Alta": "#C2570C",
+        "Crítica": "#B3261E",
+    }
+    color_prioridad = colores_prioridad.get(prioridad, "#29527A")
+
+    mensaje = MIMEMultipart("alternative")
     mensaje["From"] = usuario
     mensaje["To"] = correo_admin
     mensaje["Subject"] = f"[{ticket_id}] Nuevo reporte de soporte técnico - Prioridad {prioridad}"
 
-    cuerpo = f"""Se ha recibido un nuevo reporte de soporte técnico.
+    cuerpo_texto = f"""Se ha recibido un nuevo reporte de soporte técnico.
 
 Ticket: {ticket_id}
 Nombre del usuario: {nombre}
@@ -226,7 +234,71 @@ Prioridad: {prioridad}
 Descripción del problema:
 {descripcion}
 """
-    mensaje.attach(MIMEText(cuerpo, "plain"))
+
+    cuerpo_html = f"""\
+<html>
+<body style="margin:0; padding:0; background-color:#E7EBEF; font-family:Arial, Helvetica, sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#E7EBEF; padding:24px 0;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="background-color:#FDFDFC; border:1px solid #C7CFD8; border-radius:6px;">
+          <tr>
+            <td style="padding:20px 28px; border-bottom:2px solid #1C2733;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="font-family:'Courier New', monospace; font-size:13px; color:#5C6773;">
+                    TICKET <strong style="color:#1C2733;">{ticket_id}</strong>
+                  </td>
+                  <td align="right">
+                    <span style="font-family:'Courier New', monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:#ffffff; background-color:{color_prioridad}; border-radius:3px; padding:4px 10px;">
+                      Prioridad {prioridad}
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:24px 28px 8px;">
+              <p style="margin:0 0 4px; font-family:'Courier New', monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#5C6773;">Mesa de ayuda &middot; TI</p>
+              <h2 style="margin:0 0 20px; font-size:20px; color:#1C2733;">Nuevo reporte de soporte técnico</h2>
+
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:14px; color:#1C2733;">
+                <tr>
+                  <td style="padding:6px 0; width:150px; color:#5C6773;">Nombre</td>
+                  <td style="padding:6px 0;">{nombre}</td>
+                </tr>
+                <tr>
+                  <td style="padding:6px 0; color:#5C6773;">Correo</td>
+                  <td style="padding:6px 0;">{correo}</td>
+                </tr>
+                <tr>
+                  <td style="padding:6px 0; color:#5C6773;">Tipo de problema</td>
+                  <td style="padding:6px 0;">{tipo_problema}</td>
+                </tr>
+              </table>
+
+              <p style="margin:20px 0 6px; font-family:'Courier New', monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#5C6773;">Descripción</p>
+              <p style="margin:0 0 20px; font-size:14px; line-height:1.5; color:#1C2733; background-color:#F1F3F5; border-left:3px solid {color_prioridad}; padding:12px 14px; border-radius:2px;">
+                {descripcion}
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:14px 28px; border-top:1px solid #C7CFD8; font-family:'Courier New', monospace; font-size:11px; color:#5C6773;">
+              Generado automáticamente por el sistema de soporte técnico.
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+"""
+
+    mensaje.attach(MIMEText(cuerpo_texto, "plain"))
+    mensaje.attach(MIMEText(cuerpo_html, "html"))
 
     with smtplib.SMTP(servidor, puerto) as server:
         server.starttls()
