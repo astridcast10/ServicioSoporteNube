@@ -310,7 +310,9 @@ if "ticket_id" not in st.session_state:
     st.session_state.ticket_id = "ST-" + datetime.now().strftime("%y%m%d-%H%M")
 
 st.markdown('<div class="mesa-eyebrow"></div>', unsafe_allow_html=True)
-st.markdown('<div class="mesa-eyebrow">Mesa de Ayuda · TI</div>', unsafe_allow_html=True)
+st.markdown('<div class="mesa-eyebrow"></div>', unsafe_allow_html=True)
+
+st.markdown('<div class="mesa-eyebrow">Mesa de Ayuda · TI · Astrid Castellanos</div>', unsafe_allow_html=True)
 st.markdown('<div class="mesa-titulo">Reportar una incidencia</div>', unsafe_allow_html=True)
 st.markdown(
     '<div class="mesa-subtitulo">Completa el formulario con el detalle del problema. '
