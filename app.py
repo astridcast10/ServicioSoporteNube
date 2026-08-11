@@ -317,6 +317,8 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+              <p style="margin:0 0 4px; font-family:'Courier New', monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#5C6773;">Mesa de ayuda &middot; TI&middot; Astrid Castellanos</p>
+
 with st.container(border=True):
     st.markdown(
         f'<div class="ticket-header">'
